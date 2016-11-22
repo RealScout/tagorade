@@ -1,0 +1,9 @@
+{
+  "keyboardShortcuts": {
+    "c": "City",
+    "n": "Nature"
+  },
+  "formAction": null,
+  "jsBundle": "../dist/main-bundle.js",
+  "cssBundle": "../dist/main.css"
+}

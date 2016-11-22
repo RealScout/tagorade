@@ -1,0 +1,9 @@
+{
+  "keyboardShortcuts": {
+    "s": "Stainless",
+    "n": "Not Stainless"
+  },
+  "formAction": null,
+  "jsBundle": "https://rs-mturk-assets.s3.amazonaws.com/main-bundle.js",
+  "cssBundle": "https://rs-mturk-assets.s3.amazonaws.com/main.css"
+}

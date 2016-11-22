@@ -1,0 +1,4 @@
+__pycache__/
+*.py[cod]
+react-ui/node_modules/
+build/*.html

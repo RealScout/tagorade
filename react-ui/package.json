@@ -1,0 +1,21 @@
+{
+  "name": "my-package",
+  "dependencies" : {
+    "react": "0.13.1",
+    "lodash": "3.9.3",
+    "mousetrap": "1.5.2",
+    "object-assign": "4.1.0"
+  },
+  "devDependencies" : {
+    "browserify": "latest",
+    "reactify": "latest"
+  },
+  "scripts" : {
+    "build": "browserify main.js > ../dist/main-bundle.js && cp main.css ../dist/"
+  },
+    "browserify": {
+    "transform": [
+      ["reactify", {"es6": true}]
+    ]
+  }
+}
