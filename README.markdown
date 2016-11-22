@@ -9,6 +9,7 @@ We've been able to tag batches of 1000 photos in about 30 minutes. It
 could be faster or slower for your use case depending on the complexity
 of your classification problem.
 
+![screen shot](https://github.com/RealScout/tagorade/raw/gh-pages/images/screenshot.png)
 
 ## Tagging on your local machine
 
