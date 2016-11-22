@@ -13,6 +13,10 @@ of your classification problem.
 
 ## Tagging on your local machine
 
+Since the interface let's you manually classify images so quickly, it's
+often easier/faster to generate training sets yourself rather than taking the time to
+train others and/or integrate with a platform like Mechanical Turk.
+
 #### Generate html
 
 ``` bash
@@ -31,7 +35,7 @@ python -m http.server
 Then open `http://localhost:8000/build/index.html` and tag away.
 
 Copy the console output after hitting `Enter` into your favorite
-file editor to clean up. Yeah, really.
+file editor to clean up your results for use in training. Yeah, really.
 
 ## Tagging with Mechanical Turk
 
