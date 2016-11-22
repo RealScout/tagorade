@@ -1,5 +1,7 @@
 # Overview
 
+[![Build Status](https://travis-ci.org/RealScout/tagorade.svg?branch=master)](https://travis-ci.org/RealScout/tagorade)
+
 This is a simple tool for generating an interface to quickly build
 training sets to feed into deep learning computer vision models.
 
