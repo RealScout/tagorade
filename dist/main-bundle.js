@@ -22,7 +22,7 @@ var ShortCutLegend = React.createClass({displayName: "ShortCutLegend",
   render: function() {
     var shortcutDescriptions = [];
     _.forEach(this.props.shortcuts, function(tag, shortcut){
-      shortcutDescriptions.push(React.createElement("li", null, React.createElement("strong", null, shortcut), ": ", tag));
+      shortcutDescriptions.push(React.createElement("li", {key: shortcut}, React.createElement("strong", null, shortcut), ": ", tag));
     });
     return React.createElement("div", {className: "shortcut-legend"}, 
       React.createElement("ul", null, 
@@ -90,22 +90,36 @@ var PhotoList = React.createClass({displayName: "PhotoList",
     // Grab the last 3 tagged photos and create a Photo component for each
     var taggedPhotos = [];
     for (var i=currentIndex-3; i < currentIndex; i++) {
-        taggedPhotos.push(React.createElement(Photo, {src: getPhotoImgSrc(this.props.photos[i]), tag: this.props.tags[i]}));
+      let key = i;
+      if (this.props.photos[i]) {
+        key = this.props.photos[i].id;
+      }
+        taggedPhotos.push(React.createElement(Photo, {key: key, src: getPhotoImgSrc(this.props.photos[i]), tag: this.props.tags[i]}));
     }
 
     // Grab the currentPhoto
-    var currentPhoto = React.createElement(Photo, {src: getPhotoImgSrc(this.props.photos[currentIndex]), isCurrent: "true"});
+    let key = i;
+    if (this.props.photos[currentIndex]) {
+      key = this.props.photos[currentIndex].id;
+    }
+    else {
+      key = 'c';
+    }
+    var currentPhoto = React.createElement(Photo, {key: key, src: getPhotoImgSrc(this.props.photos[currentIndex]), isCurrent: "true"});
+    taggedPhotos.push(currentPhoto);
 
     // Grab the next 3 photos and create a Photo component for each
     var upcomingPhotos = [];
     for (var i=currentIndex+1; i < currentIndex+4; i++) {
-        upcomingPhotos.push(React.createElement(Photo, {src: getPhotoImgSrc(this.props.photos[i])}));
+      let key = i;
+      if (this.props.photos[i]) {
+        key = this.props.photos[i].id;
+      }
+      taggedPhotos.push(React.createElement(Photo, {key: key, src: getPhotoImgSrc(this.props.photos[i]), tag: this.props.tags[i]}));
     }
 
     return React.createElement("div", {className: "photo-context-slide"}, 
-      taggedPhotos, 
-      currentPhoto, 
-      upcomingPhotos
+      taggedPhotos
     );
   }
 });
@@ -219,7 +233,7 @@ var TagScout = React.createClass({displayName: "TagScout",
       React.createElement("form", {name: "mturk_form", method: "post", id: "mturk_form", action: window.config.formAction}, 
         React.createElement("input", {type: "hidden", value: turkGetParam('assignmentId', ""), name: "assignmentId", id: "assignmentId"}), 
         this.state.photos.map(function(photo, i) {
-          return React.createElement("div", null, 
+          return React.createElement("div", {key: photo.id}, 
             React.createElement("input", {type: "hidden", value: self.state.tags[i], name: 'tag'+i}), 
             React.createElement("input", {type: "hidden", value: photo.id, name: 'id'+i}), 
             React.createElement("input", {type: "hidden", value: photo.url, name: 'url'+i})

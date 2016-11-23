@@ -21,7 +21,7 @@ var ShortCutLegend = React.createClass({
   render: function() {
     var shortcutDescriptions = [];
     _.forEach(this.props.shortcuts, function(tag, shortcut){
-      shortcutDescriptions.push(<li><strong>{shortcut}</strong>: {tag}</li>);
+      shortcutDescriptions.push(<li key={shortcut}><strong>{shortcut}</strong>: {tag}</li>);
     });
     return <div className='shortcut-legend'>
       <ul>
@@ -89,22 +89,36 @@ var PhotoList = React.createClass({
     // Grab the last 3 tagged photos and create a Photo component for each
     var taggedPhotos = [];
     for (var i=currentIndex-3; i < currentIndex; i++) {
-        taggedPhotos.push(<Photo src={getPhotoImgSrc(this.props.photos[i])} tag={this.props.tags[i]}/>);
+      let key = i;
+      if (this.props.photos[i]) {
+        key = this.props.photos[i].id;
+      }
+        taggedPhotos.push(<Photo key={key} src={getPhotoImgSrc(this.props.photos[i])} tag={this.props.tags[i]}/>);
     }
 
     // Grab the currentPhoto
-    var currentPhoto = <Photo src={getPhotoImgSrc(this.props.photos[currentIndex])} isCurrent='true'/>;
+    let key = i;
+    if (this.props.photos[currentIndex]) {
+      key = this.props.photos[currentIndex].id;
+    }
+    else {
+      key = 'c';
+    }
+    var currentPhoto = <Photo key={key} src={getPhotoImgSrc(this.props.photos[currentIndex])} isCurrent='true'/>;
+    taggedPhotos.push(currentPhoto);
 
     // Grab the next 3 photos and create a Photo component for each
     var upcomingPhotos = [];
     for (var i=currentIndex+1; i < currentIndex+4; i++) {
-        upcomingPhotos.push(<Photo src={getPhotoImgSrc(this.props.photos[i])}/>);
+      let key = i;
+      if (this.props.photos[i]) {
+        key = this.props.photos[i].id;
+      }
+      taggedPhotos.push(<Photo key={key} src={getPhotoImgSrc(this.props.photos[i])} tag={this.props.tags[i]}/>);
     }
 
     return <div className='photo-context-slide'>
       {taggedPhotos}
-      {currentPhoto}
-      {upcomingPhotos}
     </div>;
   }
 });
@@ -218,7 +232,7 @@ var TagScout = React.createClass({
       <form name='mturk_form' method='post' id='mturk_form' action={window.config.formAction}>
         <input type='hidden' value={turkGetParam('assignmentId', "")} name='assignmentId' id='assignmentId'/>
         {this.state.photos.map(function(photo, i) {
-          return <div>
+          return <div key={photo.id}>
             <input type='hidden' value={self.state.tags[i]} name={'tag'+i} />
             <input type='hidden' value={photo.id} name={'id'+i} />
             <input type='hidden' value={photo.url} name={'url'+i} />
